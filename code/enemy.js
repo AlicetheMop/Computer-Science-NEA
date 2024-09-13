@@ -2,6 +2,8 @@
 Written by Samuel Orchard, on the 3rd - 5th July 2024
 this code is for the enemy object, it contains all the code for the enemy initialisation, movement and collision detection with the floor and walls
 */
+
+//new thing
 class Enemy {
   constructor() { //initiates all the variables for the enemy class
     this.pos = createVector((width - 1) * Math.random() + 1, (height - 1) * Math.random() + 1);
