@@ -4,14 +4,15 @@ this code is for the player object, it contains all the code for the player init
 */
 class Player {
   constructor() { //initiates all the variables for the player class
-    this.pos = createVector((width-1)*Math.random()+1, (height-1)*Math.random()+1);
-    this.vel = createVector(0, 0);
-    this.accel = createVector(0, 0);
-    this.health = 100;
-    this.falling = true;
+    this.pos = createVector((width-1)*Math.random()+1, (height-1)*Math.random()+1); //the position vector of the player
+    this.vel = createVector(0, 0); //the velocity vector of the player
+    this.accel = createVector(0, 0); //the acclleration vector of the player 
+    this.health = 100; //the health of the player
+    this.falling = true; 
     this.canJump = true;
     this.justJumped = false;
-    this.pos.x = constrain(this.pos.x, 10, width - 10);
+    this.justDashed = false;
+    this.pos.x = constrain(this.pos.x, 10, width - 10); //restricts the position of the player to on the screen 
     this.pos.y = constrain(this.pos.y, 10, height - 10);
   }
 
@@ -32,6 +33,12 @@ jump() { //lets the player jump
     this.falling = true;
     this.canJump = false;
   }
+}
+
+dash() { //lets the player dash
+  if (!this.justDashed)
+    this.vel.x *= 20
+    this.justDashed = true
 }
 
 stopFalling() { //stops the player from falling through the floor
@@ -59,14 +66,19 @@ move() { //allows the player to move using the WASD keys and the spacebar
   A = 65
   S = 83
   D = 68
+  P = 80
   Spacebar = 32
   */
   
   if (keyIsDown(65)) {
-    this.vel.x = -4;
+    this.vel.x = -4; //player has a velocity left 
   }
   if (keyIsDown(68)) {
-    this.vel.x = 4;
+    this.vel.x = 4; //player has a velocity right
+  }
+  if (keyIsDown(80)) {
+    this.dash()
+    console.log("dash")
   }
 
   if ((keyIsDown(87) || keyIsDown(32))) {
