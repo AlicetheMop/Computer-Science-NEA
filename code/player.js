@@ -14,11 +14,20 @@ class Player {
     this.justDashed = false;
     this.pos.x = constrain(this.pos.x, 10, width - 10); //restricts the position of the player to on the screen 
     this.pos.y = constrain(this.pos.y, 10, height - 10);
+    this.waiting = 300
   }
 
   draw() { //draws the player
     fill("white")
     rect(this.pos.x, this.pos.y, 20, 20);
+    
+    if (player.justDashed = true){  //cooldown for the dash
+      this.waiting--
+      if (this.waiting == 0){
+        player.justDashed = false
+        this.waiting = 300
+      } 
+    }
   }
 
 jump() { //lets the player jump
@@ -37,7 +46,7 @@ jump() { //lets the player jump
 
 dash() { //lets the player dash
   if (!this.justDashed)
-    this.vel.x *= 20
+    this.vel.x *= 20 //multiplies the velocity by 20 
     this.justDashed = true
 }
 

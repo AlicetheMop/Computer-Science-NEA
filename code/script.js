@@ -6,7 +6,6 @@ function setup() {
   player = new Player(); //initiaties a new player object
   enemy = new Enemy();
   agEn = new aggroEnemy();
-  waiting = 300;
 }
 
 function draw() {
@@ -22,10 +21,4 @@ function draw() {
   enemy.move();// allows the enemy to move
   agEn.move();// allows the aggro enemy to move
 
-  if (player.justDashed = true){  //cooldown for the dash
-    waiting--
-    if (waiting == 0){
-      player.justDashed = false
-    } 
-  }
 }
