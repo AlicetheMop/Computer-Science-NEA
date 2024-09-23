@@ -14,7 +14,9 @@ class Player {
     this.justDashed = false;
     this.pos.x = constrain(this.pos.x, 10, width - 10); //restricts the position of the player to on the screen 
     this.pos.y = constrain(this.pos.y, 10, height - 10);
-    this.waiting = 300
+    this.dashCooldown = 180; //cooldown timer for the dash
+    this.dashTimeRemaining = 0; //Timer for dash ability
+
   }
 
   draw() { //draws the player
@@ -22,10 +24,9 @@ class Player {
     rect(this.pos.x, this.pos.y, 20, 20);
     
     if (player.justDashed = true){  //cooldown for the dash
-      this.waiting--
-      if (this.waiting == 0){
+      this.dashTimeRemaining--
+      if (this.dashTimeRemaining <= 0){
         player.justDashed = false
-        this.waiting = 300
       } 
     }
   }
@@ -46,8 +47,9 @@ jump() { //lets the player jump
 
 dash() { //lets the player dash
   if (!this.justDashed)
-    this.vel.x *= 20 //multiplies the velocity by 20 
-    this.justDashed = true
+    this.vel.x *= 20 //multiplies the velocity by 20 to dash
+    this.justDashed = true;
+    this.dashTimeRemaining = this.dashCooldown;
 }
 
 stopFalling() { //stops the player from falling through the floor
