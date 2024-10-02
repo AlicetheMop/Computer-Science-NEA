@@ -14,7 +14,7 @@ class Player {
     this.justDashed = false;
     this.pos.x = constrain(this.pos.x, 10, width - 10); //restricts the position of the player to on the screen 
     this.pos.y = constrain(this.pos.y, 10, height - 10);
-    this.dashCooldown = 180; //cooldown timer for the dash
+    this.dashCooldown = 90; //cooldown timer for the dash
     this.dashTimeRemaining = 0; //Timer for dash ability
 
   }
@@ -22,11 +22,15 @@ class Player {
   draw() { //draws the player
     fill("white")
     rect(this.pos.x, this.pos.y, 20, 20);
+    if (!this.justDashed){
+      fill("green")
+      rect(this.pos.x - 5, this.pos.y + 5, 2,2);
+    }
     
-    if (player.justDashed = true){  //cooldown for the dash
+    if (this.justDashed = true){  //cooldown for the dash
       this.dashTimeRemaining--
       if (this.dashTimeRemaining <= 0){
-        player.justDashed = false
+        this.justDashed = false
       } 
     }
   }
