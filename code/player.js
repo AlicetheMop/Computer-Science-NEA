@@ -24,6 +24,9 @@ class Player {
     rect(this.pos.x, this.pos.y, 20, 20);
     textSize(10)
     textAlign(CENTER);
+    fill("black");
+    rect(50, 15, 90, 10); //visual indicator of the dash cooldown
+    fill("white");
     text("dash", 50, 30);
     rect(50, 15, 90 - this.dashTimeRemaining, 10); //adds a visual indicator of the dash cooldown
     if (!this.justDashed){ //adds a black cube to the corner of the player to indicate if they can dash
