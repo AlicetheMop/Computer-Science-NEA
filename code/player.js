@@ -27,6 +27,7 @@ class Player {
     fill("black");
     rect(50, 15, 90, 10); //visual indicator of the dash cooldown
     fill("white");
+    textFont('Comic Sans');
     text("dash", 50, 30);
     rect(50, 15, 90 - this.dashTimeRemaining, 10); //adds a visual indicator of the dash cooldown
     if (!this.justDashed){ //adds a black cube to the corner of the player to indicate if they can dash
@@ -88,7 +89,7 @@ move() { //allows the player to move using the WASD keys and the spacebar
   A = 65
   S = 83
   D = 68
-  P = 80
+  shift = 16
   Spacebar = 32
   */
   
@@ -98,7 +99,7 @@ move() { //allows the player to move using the WASD keys and the spacebar
   if (keyIsDown(68)) {
     this.vel.x = 4; //player has a velocity right
   }
-  if (keyIsDown(80)) {
+  if (keyIsDown(16)) { //16 is the key code for left shift
     this.dash()
     console.log("dash")
   }

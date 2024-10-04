@@ -16,6 +16,7 @@ function draw() {
     textSize(32);
     background(100,100,100);
     textAlign(CENTER);
+    textFont('Comic Sans');
     text("Press B to start", 350, 100);
     // Check for the 'B' key press to start the game
     if (keyIsDown(66)) { // 66 is the ASCII code for 'B'
