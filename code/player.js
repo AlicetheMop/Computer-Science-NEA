@@ -14,7 +14,7 @@ class Player {
     this.justDashed = false;
     this.pos.x = constrain(this.pos.x, 10, width - 10); //restricts the position of the player to on the screen 
     this.pos.y = constrain(this.pos.y, 10, height - 10);
-    this.dashCooldown = 90; //cooldown timer for the dash
+    this.dashCooldown = 60; //cooldown timer for the dash
     this.dashTimeRemaining = 0; //Timer for dash ability
     this.dashTimeRemaining = constrain(this.dashTimeRemaining, 0, 90);
   }
@@ -22,17 +22,19 @@ class Player {
   draw() { //draws the player
     fill("white")
     rect(this.pos.x, this.pos.y, 20, 20);
-    textSize(10)
+    textSize(15)
     textAlign(CENTER);
     fill("black");
-    rect(50, 15, 90, 10); //visual indicator of the dash cooldown
+    rect(70, 15, this.dashCooldown*2, 10); //visual indicator of the dash cooldown
     fill("white");
     textFont('Comic Sans');
-    text("dash", 50, 30);
-    rect(50, 15, 90 - this.dashTimeRemaining, 10); //adds a visual indicator of the dash cooldown
+    text("dash", 70, 30);
+    rect(70, 15, this.dashCooldown*2 - this.dashTimeRemaining*2, 10); //adds a visual indicator of the dash cooldown
     if (!this.justDashed){ //adds a black cube to the corner of the player to indicate if they can dash
       fill("green")
+      stroke("green");
       rect(this.pos.x - 5, this.pos.y + 5, 2,2);
+      stroke("black")
     }
     if (this.justDashed = true){  //cooldown for the dash
       this.dashTimeRemaining--

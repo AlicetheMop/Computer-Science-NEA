@@ -15,12 +15,24 @@ function draw() {
   if(!started) {
     textSize(32);
     background(100,100,100);
-    textAlign(CENTER);
-    textFont('Comic Sans');
-    text("Press B to start", 350, 100);
-    // Check for the 'B' key press to start the game
-    if (keyIsDown(66)) { // 66 is the ASCII code for 'B'
-      started = true;
+    //making a button to start the game 
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){
+      textAlign(CENTER);
+      fill("white")
+      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+      fill("black")
+      textFont('Comic Sans');
+      text("click to start", width/2, height/2);
+      if(mouseIsPressed){
+        started = true;
+      }
+    }else{
+      textAlign(CENTER);
+      fill("black")
+      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+      fill("white")
+      textFont('Comic Sans');
+      text("click to start", width/2, height/2);
     }
     return; // Exit the draw function to prevent further drawing
   }
