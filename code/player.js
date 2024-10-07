@@ -17,6 +17,8 @@ class Player {
     this.dashCooldown = 60; //cooldown timer for the dash
     this.dashTimeRemaining = 0; //Timer for dash ability
     this.dashTimeRemaining = constrain(this.dashTimeRemaining, 0, 90);
+    this.hitboxRadius = 10
+    this.invinsibilityDuration = 0;
   }
 
   draw() { //draws the player
@@ -44,6 +46,16 @@ class Player {
       } 
     }
   }
+
+  /*enemyAttacks(){ //checks if touching enemy and gets hurt if so
+    if(this.invinsibilityDuration < 0){
+      for (let i in enemies){
+        if (this.pos.dist(enemies[i].pos) < this.hitboxRadius + enemies[i].hitboxRadius){
+          this.hurt(enemies[i].damage);
+        }
+      }
+    }
+  } */
 
 jump() { //lets the player jump
   if (!this.falling) { 

@@ -2,12 +2,18 @@
 this is the main script for the game, it contains all the code for the game initialisation for the player and enemies, as well as the game loop
 */
 let started = false
+let enemies = []
 
 function setup() {
   createCanvas(700, 700); // create a canvas to draw the level on
   player = new Player(); //initiaties a new player object
-  enemy = new Enemy();
-  agEn = new aggroEnemy();
+  for (let i = 0; i < ((1 + Math.random() * 5)) * (width / 800); i++) {
+    if (Math.random(0,10) > 5){
+      enemies.push(new enemy);
+    } else {
+      enemies.push(new agEn)
+    }
+  }
 }
 
 
@@ -38,14 +44,20 @@ function draw() {
   }
   background(100, 100, 100); // set the background to grey
   rectMode(CENTER);
-  player.draw(); //draws the player
-  enemy.draw(); //draws the enemy
-  agEn.draw(); //draws the aggro enemy
-  player.applyGravity();//applies gravity to the player
-  enemy.applyGravity();//applies gravity to the enemy
-  agEn.applyGravity();//applies gravity to the aggro enemy
-  player.move();// allows the player to move
-  enemy.move();// allows the enemy to move
-  agEn.move();// allows the aggro enemy to move
+  playerHandle();
+  enemyHandle();
+}
 
+function playerHandle() {
+  player.draw(); //draws the player
+  player.applyGravity();//applies gravity to the player
+  player.move();// allows the player to move
+}
+
+function enemyHandle(){
+  for(let i in enemies) {
+    enemies[i].draw(); //draws the enemies
+    enemies[i].applyGravity(); //applies gravity to the enemies
+    enemies[i].move(); //allows the enemies to move
+  }
 }
