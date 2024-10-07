@@ -3,15 +3,22 @@ this is the main script for the game, it contains all the code for the game init
 */
 let started = false
 let enemies = []
+let agEnSpeed = Math.round(Math.random(0, 1) * 10);
+let enemyTypes = Math.round(Math.random(0,10) * 10);
 
 function setup() {
   createCanvas(700, 700); // create a canvas to draw the level on
   player = new Player(); //initiaties a new player object
-  for (let i = 0; i < ((1 + Math.random() * 5)) * (width / 800); i++) {
-    if (Math.random(0,10) > 5){
-      enemies.push(new enemy);
-    } else {
-      enemies.push(new agEn)
+  for (let i = 0; i < ((1 + Math.round(Math.random() * 10))) * (width / 700); i++) {  //spawns a random number of enemies depending on the size of the window
+    let agEnSpeed = Math.round(Math.random(0, 1) * 10); //randomly sets the speed of the aggressive enemies
+    let enemyTypes = Math.round(Math.random(0,10) * 10); //randomly sets the number of aggressive enemies vs normal enemies 
+    while (agEnSpeed >= 3) {  //prevents the agressive enemy being faster than the player
+      agEnSpeed -= 1;
+    }
+    if (enemyTypes > 5){ //adds new enemies
+      enemies.push(new Enemy());
+    } else { //adds new aggressive enemies 
+      enemies.push(new aggroEnemy(agEnSpeed));
     }
   }
 }
@@ -22,17 +29,17 @@ function draw() {
     textSize(32);
     background(100,100,100);
     //making a button to start the game 
-    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){
-      textAlign(CENTER);
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
+      textAlign(CENTER); //if the mouse is hovering over the button the colours invert
       fill("white")
       rect(width/2 - 125, height/2 - 35, 250, 50, 20);
       fill("black")
       textFont('Comic Sans');
       text("click to start", width/2, height/2);
-      if(mouseIsPressed){
+      if(mouseIsPressed){ //checks if the user has clicked the button
         started = true;
       }
-    }else{
+    }else{ //if the mouse is over the button draws the button normally 
       textAlign(CENTER);
       fill("black")
       rect(width/2 - 125, height/2 - 35, 250, 50, 20);
@@ -52,6 +59,7 @@ function playerHandle() {
   player.draw(); //draws the player
   player.applyGravity();//applies gravity to the player
   player.move();// allows the player to move
+  player.enemyAttacks(); //checks for enemy attacks
 }
 
 function enemyHandle(){

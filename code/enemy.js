@@ -11,6 +11,7 @@ class Enemy {
     this.accel = createVector(0, 0);
     this.health = 100;
     this.falling = true;
+    this.hitboxRadius = 15
   }
 
   draw() { //draws the enemy

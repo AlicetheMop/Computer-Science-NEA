@@ -3,12 +3,14 @@ Written by Samuel Orchard, on the 5th July 2024
 This code is for the aggroEnemy object, it contains all the code for the aggroEnemy initialisation, movement and collision with the floor and walls 
 */
 class aggroEnemy {
-  constructor(){ //initiates all the variables for the enemy class
+  constructor(pSpeed){ //initiates all the variables for the enemy class
     this.pos = createVector((width-1)*Math.random()+1, (height-1)*Math.random()+1);
     this.vel = createVector(0, 0);
     this.accel = createVector(0, 0);
     this.health = 100;
     this.falling = true;
+    this.speed = pSpeed;
+    this.hitboxRadius = 12.5
   }
 
   draw(){ //draws the aggressive enemy
@@ -46,10 +48,10 @@ class aggroEnemy {
       this.jump();
     }
     if (player.pos.x < this.pos.x) {
-      this.vel.x = -2;
+      this.vel.x = -this.speed;
     }
     if (player.pos.x > this.pos.x) {
-      this.vel.x = 2;
+      this.vel.x = this.speed;
     }
     if (this.pos.x > width - 30) { //prevents the enemy from going off the screen
       this.vel.x = -2;
