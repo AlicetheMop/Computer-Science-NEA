@@ -18,18 +18,20 @@ class Player {
     this.dashTimeRemaining = 0; //Timer for dash ability
     this.dashTimeRemaining = constrain(this.dashTimeRemaining, 0, 90);
     this.hitboxRadius = 10
-    this.invinsibilityDuration = 0;
+    this.invincibilityDuration = 0;
   }
 
   draw() { //draws the player
     fill("white")
     rect(this.pos.x, this.pos.y, 20, 20);
+    rectMode(CORNER)
     fill("black")
-    rect(this.pos.x, this.pos.y + 15, 50, 5)
+    rect(this.pos.x - 25, this.pos.y + 15, 50, 5)
     fill("red")
-    rect(this.pos.x, this.pos.y + 15, this.health/2, 5)
+    rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5)
     textSize(15)
     textAlign(CENTER);
+    rectMode(CENTER)
     fill("black");
     rect(70, 15, this.dashCooldown*2, 10); //visual indicator of the dash cooldown
     fill("white");
@@ -52,7 +54,7 @@ class Player {
   enemyAttacks(){ //checks if touching enemy and gets hurt if so
     if(this.invincibilityDuration <= 0){
       for (let enemy of enemies){
-        if (Math.sqrt(Math.pow(this.pos.x - enemy.pos.x, 2) + Math.pow(this.pos.y - enemy.pos.y, 2)) < (this.hitboxRadius + enemies[i].hitboxRadius)){
+        if (Math.sqrt(Math.pow(this.pos.x - enemy.pos.x, 2) + Math.pow(this.pos.y - enemy.pos.y, 2)) < (this.hitboxRadius + enemy.hitboxRadius)){
           this.hurt(5);
           console.log("damage")
         }
@@ -99,7 +101,7 @@ class Player {
     }
   }
 
-  hurt(dmg) {
+  hurt(dmg) { //deals damage
     this.health -= dmg;
     this.invincibilityDuration = 30;
     effects.push(new Effect(0,0,10));
