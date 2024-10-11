@@ -69,3 +69,14 @@ function enemyHandle(){
     enemies[i].move(); //allows the enemies to move
   }
 }
+
+function handleEffects() {
+  for (let i in effects) { //runs the effect for invincibility frames
+    effects[i].update();
+    effects[i].display();
+    if (effects[i].duration < 0) {
+      effects.splice(i, 1);
+      i--;
+    }
+  }
+}

@@ -50,10 +50,11 @@ class Player {
   }
 
   enemyAttacks(){ //checks if touching enemy and gets hurt if so
-    if(this.invinsibilityDuration < 0){
-      for (let i in enemies){
-        if (this.pos.dist(enemies[i].pos) < this.hitboxRadius + enemies[i].hitboxRadius){
+    if(this.invincibilityDuration <= 0){
+      for (let enemy of enemies){
+        if (Math.sqrt(Math.pow(this.pos.x - enemy.pos.x, 2) + Math.pow(this.pos.y - enemy.pos.y, 2)) < (this.hitboxRadius + enemies[i].hitboxRadius)){
           this.hurt(5);
+          console.log("damage")
         }
       }
     }
@@ -74,10 +75,11 @@ class Player {
   }
 
   dash() { //lets the player dash
-    if (!this.justDashed)
+    if (!this.justDashed){
       this.vel.x *= 20 //multiplies the velocity by 20 to dash
       this.justDashed = true;
       this.dashTimeRemaining = this.dashCooldown;
+    }
   }
 
   stopFalling() { //stops the player from falling through the floor
@@ -99,7 +101,7 @@ class Player {
 
   hurt(dmg) {
     this.health -= dmg;
-    this.invinsibilityDuration = 30;
+    this.invincibilityDuration = 30;
     effects.push(new Effect(0,0,10));
     effects[effects.length-1].display = function(){
       fill(255,0,0,(this.duration)*9);
