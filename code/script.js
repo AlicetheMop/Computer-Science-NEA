@@ -29,74 +29,98 @@ function setup() {
 
 
 function draw() {
-  if(!started) {
+  if(!started && !controls) { //game not started and controls not displayed
     textSize(32);
     background(100,100,100);
     rectMode(CORNER);  
-    if (controls){
-      if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
-        textAlign(CENTER); //if the mouse is hovering over the button the colours invert
-        fill("white")
-        rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-        fill("black")
-        text("back", width/2, height/2);
-        if(mouseIsPressed){ //checks if the user has clicked the button
-          controls = false;
-        }
-      }else{ //if the mouse is over the button draws the button normally 
-        textAlign(CENTER);
-        fill("black")
-        rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-        fill("white")
-        text("back", width/2, height/2);
+    //display click to start button
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
+      textAlign(CENTER); //if the mouse is hovering over the button the colours invert
+      fill("white")
+      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+      fill("black")
+      text("click to start", width/2, height/2);
+      if(mouseIsPressed){ //checks if the user has clicked the button
+        started = true;
       }
+    }else{ //if the mouse is over the button draws the button normally 
       textAlign(CENTER);
       fill("black")
       rect(width/2 - 125, height/2 - 35, 250, 50, 20);
       fill("white")
-      text("W = left", width/2, height/2 + 115);
-      text("D = right", width/2, height/2 + 230);
-      text("A = jump", width/2, height/2 + 345);
-      text("S = slow fall", width/2, height/2 + 460);
-      text("Shift = Dash", width/2, height/2 + 575);
+      text("click to start", width/2, height/2);
     }
-    if(!controls){
-      //making a button to start the game 
-      if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
-        textAlign(CENTER); //if the mouse is hovering over the button the colours invert
-        fill("white")
-        rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-        fill("black")
-        text("click to start", width/2, height/2);
-        if(mouseIsPressed){ //checks if the user has clicked the button
-          started = true;
-        }
-      }else{ //if the mouse is over the button draws the button normally 
-        textAlign(CENTER);
-        fill("black")
-        rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-        fill("white")
-        text("click to start", width/2, height/2);
+    //display controls button
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 + 80 && mouseY < height/2 + 110){ //checks if the mouse is over the button
+      textAlign(CENTER); //if the mouse is hovering over the button the colours invert
+      fill("white")
+      rect(width/2 - 125, height/2 + 80, 250, 50, 20);
+      fill("black")
+      text("controls", width/2, height/2 + 115);
+      if(mouseIsPressed){ //checks if the user has clicked the button
+        controls = true;
       }
-      if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 + 80 && mouseY < height/2 + 110){ //checks if the mouse is over the button
-        textAlign(CENTER); //if the mouse is hovering over the button the colours invert
-        fill("white")
-        rect(width/2 - 125, height/2 + 80, 250, 50, 20);
-        fill("black")
-        text("controls", width/2, height/2 + 115);
-        if(mouseIsPressed){ //checks if the user has clicked the button
-          controls = true;
-        }
-      }else{ //if the mouse is over the button draws the button normally 
-        textAlign(CENTER);
-        fill("black")
-        rect(width/2 - 125, height/2 + 80, 250, 50, 20);
-        fill("white")
-        text("controls", width/2, height/2 + 115);
-      }
-      return; // Exit the draw function to prevent further drawing
+    }else{ //if the mouse is over the button draws the button normally 
+      textAlign(CENTER);
+      fill("black")
+      rect(width/2 - 125, height/2 + 80, 250, 50, 20);
+      fill("white")
+      text("controls", width/2, height/2 + 115);
     }
-  }else if(dead) {
+    return; // Exit the draw function to prevent further drawing
+  }
+
+  if (controls){
+    textSize(32);
+    background(100,100,100);
+    rectMode(CORNER); 
+
+    //back button to return to start screen
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
+      textAlign(CENTER); //if the mouse is hovering over the button the colours invert
+      fill("white")
+      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+      fill("black")
+      text("back", width/2, height/2);
+      if(mouseIsPressed){ //checks if the user has clicked the button
+        controls = false; //close control screen
+      }
+    } else { //if the mouse is over the button draws the button normally 
+      textAlign(CENTER);
+      fill("black")
+      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+      fill("white")
+      text("back", width/2, height/2);
+    }
+    //displey controls
+    textAlign(CENTER);
+    fill("black")
+    rect(width/2 - 125, height/2 - 35, 250, 50, 20);
+    fill("white")
+    text("W = left", width/2, height/2 + 115);
+    text("D = right", width/2, height/2 + 230);
+    text("A = jump", width/2, height/2 + 345);
+    text("S = slow fall", width/2, height/2 + 460);
+    text("Shift = Dash", width/2, height/2 + 575);
+    return; //exit draw function
+  }
+
+  //if game has started
+  if (started && !dead){
+    if(player.health <= 0){
+      player.health = 100;
+      setup(); //resets the game
+      dead = true;
+    }
+  
+    background(100, 100, 100); // set the background to grey
+    rectMode(CENTER);
+    playerHandle();
+    enemyHandle();
+    handleEffects();
+  }
+
+  if (dead){
     textSize(32);
     background(100,100,100);
     rectMode(CORNER);
@@ -119,18 +143,6 @@ function draw() {
     }
     return; // Exit the draw function to prevent further drawing
   }
-  console.log(player.health);
-  if(player.health <= 0){
-    player.health = 100;
-    setup()
-    dead = true;
-  }
-
-  background(100, 100, 100); // set the background to grey
-  rectMode(CENTER);
-  playerHandle();
-  enemyHandle();
-  handleEffects();
 }
 
 function playerHandle() {
