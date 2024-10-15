@@ -107,6 +107,7 @@ class Player {
     effects.push(new Effect(0,0,10));
     effects[effects.length-1].display = function(){
       fill(255,0,0,(this.duration)*9);
+      rectMode(CORNER)
       rect(this.pos.x,this.pos.y,width,height);
     }
   }
