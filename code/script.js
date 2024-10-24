@@ -6,6 +6,7 @@ let dead = false;
 let controls = false;
 let enemies = [];
 let effects = [];
+let releaseMouse = false; //tracks if the mouse has been released
 let agEnSpeed = Math.round(Math.random(0, 1) * 10);
 let enemyTypes = Math.round(Math.random(0,10) * 10);
 
@@ -40,7 +41,7 @@ function draw() {
       rect(width/2 - 125, height/2 - 35, 250, 50, 20);
       fill("black")
       text("click to start", width/2, height/2);
-      if(mouseIsPressed){ //checks if the user has clicked the button
+      if(mouseIsPressed && releaseMouse){ //checks if the user has clicked the button
         started = true;
       }
     }else{ //if the mouse is over the button draws the button normally 
@@ -57,8 +58,9 @@ function draw() {
       rect(width/2 - 125, height/2 + 80, 250, 50, 20);
       fill("black")
       text("controls", width/2, height/2 + 115);
-      if(mouseIsPressed){ //checks if the user has clicked the button
+      if(mouseIsPressed && releaseMouse){ //checks if the user has clicked the button
         controls = true;
+        releaseMouse = false; //resets the mouse release variable when moving to the controls
       }
     }else{ //if the mouse is over the button draws the button normally 
       textAlign(CENTER);
@@ -67,43 +69,55 @@ function draw() {
       fill("white")
       text("controls", width/2, height/2 + 115);
     }
+
+    if (!mouseIsPressed) {
+      releaseMouse = true; //resets the mouse release variabel when the mouse is released
+    }
+
     return; // Exit the draw function to prevent further drawing
   }
 
-  if (controls){
+  if (controls) {
     textSize(32);
-    background(100,100,100);
-    rectMode(CORNER); 
-
-    //back button to return to start screen
-    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 - 35 && mouseY < height/2 + 15){ //checks if the mouse is over the button
-      textAlign(CENTER); //if the mouse is hovering over the button the colours invert
-      fill("white")
-      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-      fill("black")
-      text("back", width/2, height/2);
-      if(mouseIsPressed){ //checks if the user has clicked the button
-        controls = false; //close control screen
+    background(100, 100, 100);
+    rectMode(CORNER);
+  
+    // Back button to return to the start screen
+    if (mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 35 && mouseY < height / 2 + 15) { //checks if the mouse is over the button
+      textAlign(CENTER); // If the mouse is hovering over the button, the colors invert
+      fill("white");
+      rect(width / 2 - 125, height / 2 - 35, 250, 50, 20);
+      fill("black");
+      text("Back", width / 2, height / 2);
+      if (mouseIsPressed && releaseMouse) { // Checks if the user has clicked the button
+        controls = false; // Go back to the start screen
+        releaseMouse = false; //prevents the game immediately starting when back is clicked
       }
-    } else { //if the mouse is over the button draws the button normally 
+    } else { // If the mouse is not hovering over the button, draw the button normally
       textAlign(CENTER);
-      fill("black")
-      rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-      fill("white")
-      text("back", width/2, height/2);
+      fill("black");
+      rect(width / 2 - 125, height / 2 - 35, 250, 50, 20);
+      fill("white");
+      text("Back", width / 2, height / 2);
     }
-    //displey controls
+  
+    // Display the controls list
     textAlign(CENTER);
-    fill("black")
-    rect(width/2 - 125, height/2 - 35, 250, 50, 20);
-    fill("white")
-    text("W = left", width/2, height/2 + 115);
-    text("D = right", width/2, height/2 + 230);
-    text("A = jump", width/2, height/2 + 345);
-    text("S = slow fall", width/2, height/2 + 460);
-    text("Shift = Dash", width/2, height/2 + 575);
-    return; //exit draw function
+    fill(12, 0, 99);
+    rect(width / 2 - 125, height / 2 + 40, 250, 295, 20);
+    fill("white");
+    text("A = Move Left", width / 2, height / 2 + 80);
+    text("D = Move Right", width / 2, height / 2 + 140);
+    text("W = Jump", width / 2, height / 2 + 200);
+    text("S = Slow Fall", width / 2, height / 2 + 260);
+    text("Shift = Dash", width / 2, height / 2 + 320);
+    if (!mouseIsPressed) {
+      releaseMouse = true; //resets the mouse release variabel when the mouse is released
+    }
+
+    return; // Exit draw function to prevent further drawing
   }
+  
 
   //if game has started
   if (started && !dead){
