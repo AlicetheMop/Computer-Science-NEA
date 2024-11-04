@@ -6,6 +6,7 @@ let dead = false;
 let controls = false;
 let enemies = [];
 let effects = [];
+let bullets = [];
 let releaseMouse = false; //tracks if the mouse has been released
 let agEnSpeed = Math.round(Math.random(0, 1) * 10);
 let enemyTypes = Math.round(Math.random(0,10) * 10);
@@ -14,6 +15,7 @@ function setup() {
   createCanvas(windowWidth - 25, windowHeight - 25); // create a canvas to draw the level on, changes dependin on the window size
   player = new Player(); //initiaties a new player object
   platform = new platforms();
+  bullets = [];
   for (let i = 0; i < ((1 + Math.round(Math.random() * 10))) * (width / 1400); i++) {  //spawns a random number of enemies depending on the size of the window
     let agEnSpeed = Math.round(Math.random(1, 2) * 10); //randomly sets the speed of the aggressive enemies
     let enemyTypes = Math.round(Math.random(0,10) * 10); //randomly sets the number of aggressive enemies vs normal enemies
@@ -126,12 +128,17 @@ function draw() {
       setup(); //resets the game
       dead = true;
     }
+
+    if (mouseIsPressed) {
+      player.shoot();
+    }
   
     background(100, 100, 100); // set the background to grey
     rectMode(CENTER);
     playerHandle();
     enemyHandle();
     handleEffects();
+    handleBullets();
   }
 
   if (dead){
@@ -182,6 +189,17 @@ function handleEffects() {
     effects[i].display();
     if (effects[i].duration < 0) {
       effects.splice(i, 1);
+      i--;
+    }
+  }
+}
+
+function handleBullets() {
+  for (let i in bullets) {
+    bullets[i].update();
+    bullets[i].display();
+    if (!bullets[i].checkOnScreen()) {
+      bullets.splice(i, 1);
       i--;
     }
   }

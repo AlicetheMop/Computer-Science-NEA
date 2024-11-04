@@ -171,4 +171,10 @@ class Player {
       this.applyGravity(); 
     }
   }
+
+  shoot(){
+    let bulletAngle = atan2((mouseX-this.pos.x),(mouseY-this.pos.y)) 
+    bullets.push(new Bullet(this.pos.x, this.pos.y, bulletAngle));
+    this.ammo--;
+  }
 }
