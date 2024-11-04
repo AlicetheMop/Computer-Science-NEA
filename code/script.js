@@ -7,7 +7,7 @@ let controls = false;
 let enemies = [];
 let effects = [];
 let bullets = [];
-let releaseMouse = false; //tracks if the mouse has been released
+let releaseMouse = false; //tracks if the mouse has been released 
 let agEnSpeed = Math.round(Math.random(0, 1) * 10);
 let enemyTypes = Math.round(Math.random(0,10) * 10);
 
@@ -129,8 +129,13 @@ function draw() {
       dead = true;
     }
 
-    if (mouseIsPressed) {
+    if (mouseIsPressed && releaseMouse) { //shoots when the player clicks 
       player.shoot();
+      releaseMouse = false //prevents multiple bullets spawning from one click
+    }
+
+    if(!mouseIsPressed){ //resets the releaseMouse variable when the mouse is released
+      releaseMouse = true;
     }
   
     background(100, 100, 100); // set the background to grey

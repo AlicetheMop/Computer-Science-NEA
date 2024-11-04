@@ -16,6 +16,10 @@ class aggroEnemy {
   draw(){ //draws the aggressive enemy
     fill("blue")
     rect(this.pos.x, this.pos.y, 25, 25)
+    rectMode(CORNER)
+    fill("red")
+    rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5)
+    rectMode(CENTER)
   }
 
   jump() { //lets the enemy jump 

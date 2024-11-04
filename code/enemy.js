@@ -17,6 +17,10 @@ class Enemy {
   draw() { //draws the enemy
     fill("red")
     rect(this.pos.x, this.pos.y, 30, 30)
+    rectMode(CORNER)
+    fill("red")
+    rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5)
+    rectMode(CENTER)
   }
 
   jump() { //lets the enemy jump
@@ -41,6 +45,22 @@ class Enemy {
 
     if (this.falling) { //accellerates the enemy under gravity 
       this.accel.y = 1;
+    }
+  }
+
+  getHit() {
+    for (let bullet of bullets){
+      if (Math.sqrt(Math.pow(this.pos.x - bullet.pos.x, 2) + Math.pow(this.pos.y - bullet.pos.y, 2)) < (this.hitboxRadius + bullet.hitboxRadius)){
+        this.getDamaged(10);
+        console.log("ouch")
+      }
+    }
+  }
+
+  getDamaged(dmg) {
+    this.health -= dmg
+    if(health == 0){
+      pop()
     }
   }
 

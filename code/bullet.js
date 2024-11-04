@@ -7,7 +7,6 @@ class Bullet{
       this.vel = createVector(sin(this.angle)*this.speed,cos(this.angle)*this.speed);
       this.hitboxRadius = 5;
       this.damage = 10;
-      console.log("called")
     }
     
 
@@ -28,7 +27,7 @@ class Bullet{
       fill("yellow")
       translate(this.pos.x,this.pos.y);
       rotate(-this.angle+180);
-      rect(this.pos.x, this.pos.y, 20, 10)
+      circle(0, 0,this.size)
       pop()
     }
     
