@@ -55,7 +55,7 @@ function draw() {
       text("click to start", width/2, height/2);
     }
     //display controls button
-    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 + 80 && mouseY < height/2 + 110){ //checks if the mouse is over the button
+    if(mouseX > width/2 - 125 && mouseX < width/2 + 125 && mouseY > height/2 + 80 && mouseY < height/2 + 130){ //checks if the mouse is over the button
       textAlign(CENTER); //if the mouse is hovering over the button the colours invert
       fill("white")
       rect(width/2 - 125, height/2 + 80, 250, 50, 20);
@@ -86,12 +86,12 @@ function draw() {
     rectMode(CORNER);
   
     // Back button to return to the start screen
-    if (mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 40 && mouseY < height / 2 + 15) { //checks if the mouse is over the button
+    if (mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 55 && mouseY < height / 2 - 5) { //checks if the mouse is over the button
       textAlign(CENTER); // If the mouse is hovering over the button, the colors invert
       fill("white");
-      rect(width / 2 - 125, height / 2 - 40, 250, 50, 20);
+      rect(width / 2 - 125, height / 2 - 55, 250, 50, 20);
       fill("black");
-      text("Back", width / 2, height / 2);
+      text("Back", width / 2, height / 2 - 20);
       if (mouseIsPressed && releaseMouse) { // Checks if the user has clicked the button
         controls = false; // Go back to the start screen
         releaseMouse = false; //prevents the game immediately starting when back is clicked
@@ -99,22 +99,22 @@ function draw() {
     } else { // If the mouse is not hovering over the button, draw the button normally
       textAlign(CENTER);
       fill("black");
-      rect(width / 2 - 125, height / 2 - 40, 250, 50, 20);
+      rect(width / 2 - 125, height / 2 - 55, 250, 50, 20);
       fill("white");
-      text("Back", width / 2, height / 2 - 5);
+      text("Back", width / 2, height / 2 - 20);
     }
   
     // Display the controls list
     textAlign(CENTER);
     fill(12, 0, 99);
-    rect(width / 2 - 125, height / 2 + 35, 250, 360, 20);
+    rect(width / 2 - 125, height / 2 + 10, 250, 360, 20);
     fill("white");
-    text("A = Move Left", width / 2, height / 2 + 75);
-    text("D = Move Right", width / 2, height / 2 + 135);
-    text("W = Jump", width / 2, height / 2 + 200);
-    text("S = Slow Fall", width / 2, height / 2 + 255);
-    text("Shift = Dash", width / 2, height / 2 + 315);
-    text("LMB = Attack", width / 2, height / 2 + 375);
+    text("A = Move Left", width / 2, height / 2 + 50);
+    text("D = Move Right", width / 2, height / 2 + 110);
+    text("W = Jump", width / 2, height / 2 + 175);
+    text("S = Slow Fall", width / 2, height / 2 + 230);
+    text("Shift = Dash", width / 2, height / 2 + 290);
+    text("LMB = Attack", width / 2, height / 2 + 350);
     if (!mouseIsPressed) {
       releaseMouse = true; //resets the mouse release variabel when the mouse is released
     }
