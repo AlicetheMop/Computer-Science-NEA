@@ -1,6 +1,6 @@
 /* 
 Written by Samuel Orchard, on the 3rd - 5th July 2024
-this code is for the player object, it contains all the code for the player initialisation, movement and collision detection with the floor and walls
+this code is for the player object, it contains all the code for the player initialisation, movement, health and damage and collision detection with the floor and walls
 */
 class Player {
   constructor() { //initiates all the variables for the player class
@@ -16,7 +16,7 @@ class Player {
     this.pos.y = constrain(this.pos.y, 10, height - 10);
     this.dashCooldown = 60; //cooldown timer for the dash
     this.dashTimeRemaining = 0; //Timer for dash ability
-    this.dashTimeRemaining = constrain(this.dashTimeRemaining, 0, 90);
+    this.dashTimeRemaining = constrain(this.dashTimeRemaining, 0, 90); //constrains the dash timer between 0 and 90
     this.hitboxRadius = 10
     this.invincibilityDuration = 0;
   }

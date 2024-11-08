@@ -1,9 +1,9 @@
 /*
 Written by Samuel Orchard, on the 5th July 2024
-This code is for the aggroEnemy object, it contains all the code for the aggroEnemy initialisation, movement and collision with the floor and walls 
+This code is for the aggroEnemy object, it contains all the code for the aggroEnemy initialisation, movement, health and damage and collision with the floor and walls
 */
-class aggroEnemy {
-  constructor(pSpeed){ //initiates all the variables for the enemy class
+class aggroEnemy{
+  constructor(pSpeed){ //initiates all the variables for the aggressive enemy class including position, velocity, acceleration and health 
     this.pos = createVector((width-1)*Math.random()+1, (height-1)*Math.random()+1);
     this.vel = createVector(0, 0);
     this.accel = createVector(0, 0);
@@ -11,12 +11,15 @@ class aggroEnemy {
     this.falling = true;
     this.speed = pSpeed;
     this.hitboxRadius = 12.5
+    this.jumpNum = 0
   }
 
-  draw(){ //draws the aggressive enemy
+  draw(){ //draws the enemy
     fill("blue")
     rect(this.pos.x, this.pos.y, 25, 25)
     rectMode(CORNER)
+    fill("black")
+    rect(this.pos.x - 25, this.pos.y + 15, 50, 5)
     fill("red")
     rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5)
     rectMode(CENTER)
@@ -47,9 +50,25 @@ class aggroEnemy {
     }
   }
 
+  getHit() { //allows the enemy to be hit by bullets 
+    for (let bullet of bullets){
+      if (Math.sqrt(Math.pow(this.pos.x - bullet.pos.x, 2) + Math.pow(this.pos.y - bullet.pos.y, 2)) < (this.hitboxRadius + bullet.hitboxRadius)){
+        this.getDamaged(10);
+        console.log("ouch")
+      }
+    }
+  }
+
+  getDamaged(dmg) { //damages the enemy 
+    this.health -= dmg
+  }
+
   move() { //the enemy moves towards the player
-    if (player.pos.y < this.pos.y) {
+    if (player.pos.y < this.pos.y && this.jumpNum < 10) { //only lets the enemy jump after a certain amount of time 
+      this.jumpNum += 1;
+    }else{
       this.jump();
+      this.jumpNum = 0
     }
     if (player.pos.x < this.pos.x) {
       this.vel.x = -this.speed;

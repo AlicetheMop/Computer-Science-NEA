@@ -1,5 +1,6 @@
-/* Written by Samuel Orchard,on the 3rd July 2024
+/* Written by Samuel Orchard, from 3rd July 2024
 this is the main script for the game, it contains all the code for the game initialisation for the player and enemies, as well as the game loop
+displays the the main and sub menus and allows for relaying.
 */
 let started = false;
 let dead = false;
@@ -85,10 +86,10 @@ function draw() {
     rectMode(CORNER);
   
     // Back button to return to the start screen
-    if (mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 35 && mouseY < height / 2 + 15) { //checks if the mouse is over the button
+    if (mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 40 && mouseY < height / 2 + 15) { //checks if the mouse is over the button
       textAlign(CENTER); // If the mouse is hovering over the button, the colors invert
       fill("white");
-      rect(width / 2 - 125, height / 2 - 35, 250, 50, 20);
+      rect(width / 2 - 125, height / 2 - 40, 250, 50, 20);
       fill("black");
       text("Back", width / 2, height / 2);
       if (mouseIsPressed && releaseMouse) { // Checks if the user has clicked the button
@@ -98,21 +99,22 @@ function draw() {
     } else { // If the mouse is not hovering over the button, draw the button normally
       textAlign(CENTER);
       fill("black");
-      rect(width / 2 - 125, height / 2 - 35, 250, 50, 20);
+      rect(width / 2 - 125, height / 2 - 40, 250, 50, 20);
       fill("white");
-      text("Back", width / 2, height / 2);
+      text("Back", width / 2, height / 2 - 5);
     }
   
     // Display the controls list
     textAlign(CENTER);
     fill(12, 0, 99);
-    rect(width / 2 - 125, height / 2 + 40, 250, 295, 20);
+    rect(width / 2 - 125, height / 2 + 35, 250, 360, 20);
     fill("white");
-    text("A = Move Left", width / 2, height / 2 + 80);
-    text("D = Move Right", width / 2, height / 2 + 140);
+    text("A = Move Left", width / 2, height / 2 + 75);
+    text("D = Move Right", width / 2, height / 2 + 135);
     text("W = Jump", width / 2, height / 2 + 200);
-    text("S = Slow Fall", width / 2, height / 2 + 260);
-    text("Shift = Dash", width / 2, height / 2 + 320);
+    text("S = Slow Fall", width / 2, height / 2 + 255);
+    text("Shift = Dash", width / 2, height / 2 + 315);
+    text("LMB = Attack", width / 2, height / 2 + 375);
     if (!mouseIsPressed) {
       releaseMouse = true; //resets the mouse release variabel when the mouse is released
     }
@@ -127,6 +129,10 @@ function draw() {
       player.health = 100;
       setup(); //resets the game
       dead = true;
+    }
+
+    if(enemies.length == 0){ //takes you back to the main menu when all enemies are dead 
+      started = false
     }
 
     if (mouseIsPressed && releaseMouse) { //shoots when the player clicks 
@@ -185,13 +191,17 @@ function enemyHandle(){
     enemies[i].draw(); //draws the enemies
     enemies[i].applyGravity(); //applies gravity to the enemies
     enemies[i].move(); //allows the enemies to move
+    enemies[i].getHit(); //allows the enemy to be damaged
+    if(enemies[i].health <= 0){
+      enemies.splice(i,1);
+    }
   }
 }
 
 function handleEffects() {
   for (let i in effects) { //runs the effect for invincibility frames
     effects[i].update();
-    effects[i].display();
+    effects[i].display(); //shows the invincibility frame effect SD
     if (effects[i].duration < 0) {
       effects.splice(i, 1);
       i--;
@@ -200,11 +210,11 @@ function handleEffects() {
 }
 
 function handleBullets() {
-  for (let i in bullets) {
-    bullets[i].update();
-    bullets[i].display();
-    if (!bullets[i].checkOnScreen()) {
-      bullets.splice(i, 1);
+  for (let i in bullets) { 
+    bullets[i].update(); //moves the bullet 
+    bullets[i].display(); //displays the bullets 
+    if (!bullets[i].checkOnScreen()) { //checks that the bullets are off the screen 
+      bullets.splice(i, 1); //if the bullets are off the screen they are removed 
       i--;
     }
   }

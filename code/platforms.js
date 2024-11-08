@@ -8,6 +8,6 @@ class platforms{
 
     display(){
         fill("black")
-        rect(this.pos.x, this.pos.y, 100, 10)
+        //rect(this.pos.x, this.pos.y, 100, 10)
     }
 }

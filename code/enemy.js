@@ -1,11 +1,10 @@
 /*
 Written by Samuel Orchard, on the 3rd - 5th July 2024
-this code is for the enemy object, it contains all the code for the enemy initialisation, movement and collision detection with the floor and walls
+this code is for the enemy object, it contains all the code for the enemy initialisation, movement, damage, health and collision detection with the floor and walls
 */
 
-//new thing
 class Enemy {
-  constructor() { //initiates all the variables for the enemy class
+  constructor() { //initiates all the variables for the enemy class including the position, velocity and acceleration
     this.pos = createVector((width - 1) * Math.random() + 1, (height - 1) * Math.random() + 1);
     this.vel = createVector(0, 0);
     this.accel = createVector(0, 0);
@@ -18,12 +17,14 @@ class Enemy {
     fill("red")
     rect(this.pos.x, this.pos.y, 30, 30)
     rectMode(CORNER)
+    fill("black")
+    rect(this.pos.x - 25, this.pos.y + 15, 50, 5)
     fill("red")
-    rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5)
+    rect(this.pos.x - 25, this.pos.y + 15, this.health/2, 5) //draws the enemy health bar 
     rectMode(CENTER)
   }
 
-  jump() { //lets the enemy jump
+  jump() { //lets the enemy jump if they are on the ground 
     if (!this.falling) { 
       this.pos.y--;
       this.vel.y = -20;
@@ -48,20 +49,18 @@ class Enemy {
     }
   }
 
-  getHit() {
+  getHit() { //allows the enemy to be hit by bullets 
     for (let bullet of bullets){
       if (Math.sqrt(Math.pow(this.pos.x - bullet.pos.x, 2) + Math.pow(this.pos.y - bullet.pos.y, 2)) < (this.hitboxRadius + bullet.hitboxRadius)){
         this.getDamaged(10);
+        bullets.splice(bullet ,1)
         console.log("ouch")
       }
     }
   }
 
-  getDamaged(dmg) {
+  getDamaged(dmg) { //damages the enemy 
     this.health -= dmg
-    if(health == 0){
-      pop()
-    }
   }
 
   move() { //the enemy moves towards the player
@@ -87,10 +86,10 @@ class Enemy {
     this.vel.add(this.accel);
     this.pos.add(this.vel);
 
-    if (this.pos.y > height - 20) {
+    if (this.pos.y > height - 20) { //prevents the enemy falling through the ground 
       this.stopFalling();
       this.pos.y = height - 20;
-    } else {
+    } else { //applies gravity when the enemy is above the ground 
       this.applyGravity();
     }
   }

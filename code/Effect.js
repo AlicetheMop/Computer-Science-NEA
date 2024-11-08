@@ -1,3 +1,6 @@
+/*written by Samuel Orchard on 10th October 2024
+This file contains the effect class and instructions on how to use it
+ */
 class Effect{
     constructor(newX, newY, newDuration){
       this.pos = createVector(newX,newY);
