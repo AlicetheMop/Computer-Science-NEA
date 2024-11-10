@@ -54,6 +54,7 @@ class aggroEnemy{
     for (let bullet of bullets){
       if (Math.sqrt(Math.pow(this.pos.x - bullet.pos.x, 2) + Math.pow(this.pos.y - bullet.pos.y, 2)) < (this.hitboxRadius + bullet.hitboxRadius)){
         this.getDamaged(10);
+        bullets.splice(bullet, 1)
         console.log("ouch")
       }
     }
@@ -64,11 +65,11 @@ class aggroEnemy{
   }
 
   move() { //the enemy moves towards the player
-    if (player.pos.y < this.pos.y && this.jumpNum < 10) { //only lets the enemy jump after a certain amount of time 
-      this.jumpNum += 1;
-    }else{
+    if (player.pos.y < this.pos.y && this.jumpNum > 10) { //only lets the enemy jump after a certain amount of time 
       this.jump();
-      this.jumpNum = 0
+      this.jumpNum = 0;
+    }else{
+      this.jumpNum += 1;
     }
     if (player.pos.x < this.pos.x) {
       this.vel.x = -this.speed;

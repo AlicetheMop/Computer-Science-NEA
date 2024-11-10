@@ -53,7 +53,7 @@ class Enemy {
     for (let bullet of bullets){
       if (Math.sqrt(Math.pow(this.pos.x - bullet.pos.x, 2) + Math.pow(this.pos.y - bullet.pos.y, 2)) < (this.hitboxRadius + bullet.hitboxRadius)){
         this.getDamaged(10);
-        bullets.splice(bullet ,1)
+        bullets.splice(bullet, 1)
         console.log("ouch")
       }
     }
