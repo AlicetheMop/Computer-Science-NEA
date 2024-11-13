@@ -133,6 +133,7 @@ function draw() {
 
     if(enemies.length == 0){ //takes you back to the main menu when all enemies are dead 
       started = false
+      setup();//resets the game 
     }
 
     if (mouseIsPressed && releaseMouse) { //shoots when the player clicks 
