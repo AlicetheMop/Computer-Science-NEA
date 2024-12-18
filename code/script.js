@@ -113,7 +113,7 @@ function draw() {
     text("D = Move Right", width / 2, height / 2 + 110);
     text("W = Jump", width / 2, height / 2 + 175);
     text("S = Slow Fall", width / 2, height / 2 + 230);
-    text("Shift = Dash", width / 2, height / 2 + 290);
+    text("E = Dash", width / 2, height / 2 + 290);
     text("LMB = Attack", width / 2, height / 2 + 350);
     if (!mouseIsPressed) {
       releaseMouse = true; //resets the mouse release variabel when the mouse is released
